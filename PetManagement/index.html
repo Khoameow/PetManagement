@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pet 管理システム</title>
+
+    <!-- CSS only -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+      crossorigin="anonymous"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css"
+      integrity="sha512-Oy+sz5W86PK0ZIkawrG0iv7XwWhYecM3exvUtMKNJMekGFJtVAhibhRPTpmyTj8+lJCkmWfnpxKgT2OopquBHA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <style>
+      table .bi-check-circle-fill {
+        color: green;
+      }
+
+      table .bi-x-circle-fill {
+        color: red;
+      }
+
+      table .btn.btn-danger {
+        font-size: 14px;
+      }
+    </style>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+
+  <body>
+    <div class="wrapper">
+      <!-- Sidebar Holder -->
+      <nav id="sidebar" class="active">
+        <div class="sidebar-header" id="sidebar-title">
+          <h3><i class="bi bi-envelope-paper-heart-fill"></i> Pet App</h3>
+          <strong><i class="bi bi-list"></i></strong>
+        </div>
+
+        <ul class="list-unstyled components">
+          <li class="active">
+            <a href="#">
+              <i class="bi bi-house"></i>
+              ホーム画面
+            </a>
+          </li>
+          <li class="">
+            <a href="#">
+              <i class="bi bi-file-earmark-person"></i>
+              個人情報
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- Page Content Holder -->
+      <div id="content">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+          <div class="container-fluid">
+            <a class="navbar-brand" href="#">Pet 管理画面</a>
+          </div>
+        </nav>
+        <div class="container" id="main">
+          <div class="row justify-content-center align-items-center mt-4">
+            <div class="col-lg-6 col-lg-offset-4">
+              <form class="form" id="form">
+                <div class="form-group row mb-3">
+                  <label for="input-id" class="col-sm-3 col-form-label"
+                    >Pet ID</label
+                  >
+                  <div class="col-sm-9">
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="input-id"
+                      placeholder="ID入力"
+                    />
+                  </div>
+                </div>
+                <div class="form-group row mb-3">
+                  <label for="input-name" class="col-sm-3 col-form-label"
+                    >Pet 名前</label
+                  >
+                  <div class="col-sm-5">
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="input-name"
+                      placeholder="名前入力"
+                    />
+                  </div>
+                  <label
+                    for="input-age"
+                    class="col-sm-1 col-form-label"
+                    style="text-align: right"
+                    >歳</label
+                  >
+                  <div class="col-sm-3">
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="input-age"
+                      placeholder="年齢を入力"
+                    />
+                  </div>
+                </div>
+                <div class="form-group row mb-3">
+                  <label for="input-type" class="col-sm-3 col-form-label"
+                    >タイプ</label
+                  >
+                  <div class="col-sm-9">
+                    <select class="form-control" id="input-type">
+                      <option>猫か犬</option>
+                      <option>犬</option>
+                      <option>猫</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group row mb-3">
+                  <label for="input-weight" class="col-sm-3 col-form-label"
+                    >体重</label
+                  >
+                  <div class="col-sm-3">
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="input-weight"
+                      placeholder="体重(kg)"
+                    />
+                  </div>
+
+                  <label
+                    for="input-length"
+                    class="col-sm-3 col-form-label"
+                    style="text-align: right"
+                    >長さ</label
+                  >
+                  <div class="col-sm-3">
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="input-length"
+                      placeholder="長さ(cm)
+                      "
+                    />
+                  </div>
+                </div>
+                <div class="form-group row mb-3">
+                  <label class="col-sm-3 col-form-label">Color</label>
+                  <div class="col-sm-3">
+                    <input
+                      type="color"
+                      class="form-control"
+                      id="input-color-1"
+                    />
+                  </div>
+                  <label
+                    for="input-breed"
+                    class="col-sm-3 col-form-label"
+                    style="text-align: right"
+                    >種類</label
+                  >
+                  <div class="col-sm-3">
+                    <select class="form-control" id="input-breed">
+                      <option>種類を選び</option>
+                      <option>茶トラ</option>
+                      <option>雑種</option>
+                      <option>テリア</option>
+                      <option>グレイハウンド</option>
+                      <option>ペルシア</option>
+                      <option>ロットワイラー</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group row mb-3">
+                  <div class="col-sm-3"></div>
+                  <div class="custom-control custom-checkbox col-sm-3">
+                    <input
+                      type="checkbox"
+                      class="custom-control-input"
+                      id="input-vaccinated"
+                    />
+                    <label class="custom-control-label" for="input-vaccinated"
+                      >接種済み</label
+                    >
+                  </div>
+                  <div class="custom-control custom-checkbox col-sm-3">
+                    <input
+                      type="checkbox"
+                      class="custom-control-input"
+                      id="input-dewormed"
+                    />
+                    <label class="custom-control-label" for="input-dewormed"
+                      >駆虫済み</label
+                    >
+                  </div>
+                  <div class="custom-control custom-checkbox col-sm-3">
+                    <input
+                      type="checkbox"
+                      class="custom-control-input"
+                      id="input-sterilized"
+                    />
+                    <label class="custom-control-label" for="input-sterilized"
+                      >殺菌済み</label
+                    >
+                  </div>
+                </div>
+                <button type="button" class="btn btn-primary" id="submit-btn">
+                  送信
+                </button>
+                <button type="button" class="btn btn-warning" id="healthy-btn">
+                  健康なペットを見る
+                </button>
+                <button type="button" class="btn btn-warning" id="show-btn">
+                  全てペットを見る
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="container" style="max-width: 90%">
+          <table class="table table-striped" id="render-table">
+            <thead>
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col">名前</th>
+                <th scope="col">年齢</th>
+                <th scope="col">タイプ</th>
+                <th scope="col">体重</th>
+                <th scope="col">長さ</th>
+                <th scope="col">種類</th>
+                <th scope="col">色</th>
+                <th scope="col">接種済み</th>
+                <th scope="col">駆虫済み</th>
+                <th scope="col">殺菌済み</th>
+                <th scope="col">登録日</th>
+                <th scope="col">編集</th>
+              </tr>
+            </thead>
+            <tbody id="tbody">
+              <!-- <tr>
+                <th scope="row">P001</th>
+                <td>Tom</td>
+                <td>3</td>
+                <td>Cat</td>
+                <td>5 kg</td>
+                <td>50 cm</td>
+                <td>Tabby</td>
+                <td>
+                  <i class="bi bi-square-fill" style="color: red"></i>
+                </td>
+                <td><i class="bi bi-check-circle-fill"></i></td>
+                <td><i class="bi bi-check-circle-fill"></i></td>
+                <td><i class="bi bi-check-circle-fill"></i></td>
+                <td>01/03/2022</td>
+                <td>
+                  <button type="button" class="btn btn-danger">Delete</button>
+                </td>
+              </tr>
+              <tr>
+                <th scope="row">P002</th>
+                <td>Tyke</td>
+                <td>5</td>
+                <td>Dog</td>
+                <td>3 kg</td>
+                <td>40 cm</td>
+                <td>Mixed Breed</td>
+                <td>
+                  <i class="bi bi-square-fill" style="color: green"></i>
+                </td>
+                <td><i class="bi bi-x-circle-fill"></i></td>
+                <td><i class="bi bi-x-circle-fill"></i></td>
+                <td><i class="bi bi-x-circle-fill"></i></td>
+                <td>02/03/2022</td>
+                <td>
+                  <button type="button" class="btn btn-danger">Delete</button>
+                </td>
+              </tr> -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- JavaScript Bundle with Popper -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      // Toggle class active when click on navbar
+      const sidebarTitleEl = document.getElementById('sidebar-title');
+      const sidebarEl = document.getElementById('sidebar');
+      sidebarTitleEl.addEventListener('click', function () {
+        sidebarEl.classList.toggle('active');
+      });
+    </script>
+    <script src="./main.js"></script>
+  </body>
+</html>
