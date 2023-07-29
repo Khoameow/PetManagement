@@ -4,7 +4,6 @@
 // const arrInput = document.getElementsByTagName('input');
 // console.log(arrInput);
 //form
-const form = document.getElementById('form');
 const PET_ID = document.getElementById('input-id');
 const PET_NAME = document.getElementById('input-name');
 const PET_AGE = document.getElementById('input-age');
@@ -21,7 +20,21 @@ const sterilizedCheckbox = document.getElementById('input-sterilized');
 const SUBMIT_FORM = document.getElementById('submit-btn'); // submit data button
 const PET_HEALTHY = document.getElementById('healthy-btn'); //show pet healthy
 const SHOW_PET = document.getElementById('show-btn'); //show all pet
-
+const SHOW_BMI = document.getElementById('BMI-btn');
+let PET_BMI = '⍰';
+function init() {
+  PET_ID.value = '';
+  PET_NAME.value = '';
+  PET_AGE.value = '';
+  PET_WEIGHT.value = '';
+  PET_LENGTH.value = '';
+  PET_COLOR.value = ' ';
+  PET_TYPE.value = '猫か犬';
+  PET_BREED.value = '種類を選び';
+  vaccinatedCheckbox.checked = false;
+  dewormedCheckbox.checked = false;
+  sterilizedCheckbox.checked = false;
+}
 let data = [];
 let inputCheck = document.getElementsByTagName('input');
 const send = () => {
@@ -40,6 +53,7 @@ const send = () => {
     petColor: PET_COLOR.value,
     petBreed: PET_BREED.value,
     petHealth: PET_DATA,
+    petBMI: PET_BMI,
   };
   // check null
   if (
@@ -56,30 +70,14 @@ const send = () => {
     alert('未選択があります');
     return;
   }
-  //   } else if (
-  //     !vaccinatedCheckbox.checked &&
-  //     !dewormedCheckbox.checked &&
-  //     !sterilizedCheckbox.checked
-  //   ) {
-  //     alert('健康状態を選択してください');
-  //     return;
-  //   }
   data.push(obj);
   console.log(data);
   render(data);
+  init();
 };
 SUBMIT_FORM.addEventListener('click', send);
 //create new data khi check pet khoe manh
 const CHECK_PET = () => {
-  // Sử dụng vòng lặp for
-  //   for (let i = 0; i < data.length; i++) {
-  //     const petData = data[i].PET_DATA;
-  //     if (petData.length > 2) {
-  //       console.log(data[i]);
-  //     } else {
-  //       console.log('No thing');
-  //     }
-  //   }
   if (data.length == 0) {
     alert('まだ登録していない');
     return;
@@ -97,6 +95,7 @@ const CHECK_PET = () => {
     <th scope="col">駆虫済み</th>
     <th scope="col">殺菌済み</th>
     <th scope="col">登録日</th>
+    <th scope="col">BMI</th>
     <th scope="col">編集</th>
   </tr>`;
   data.forEach((element) => {
@@ -130,6 +129,7 @@ const CHECK_PET = () => {
         <td><i class="${colorCheck[1]}"></i></td>
         <td><i class="${colorCheck[2]}"></i></td>
         <td>${day}/${month}/${year}</td>
+        <td>${element.petBMI}</td>
         <td><button type="button" onclick="deleteById(${element.petId})"  class="btn btn-danger delete-btn" id="delete-row-${element.petId}">Delete</button></td>
         </tr>`;
       document.getElementById('render-table').innerHTML = newTable;
@@ -155,6 +155,7 @@ const render = () => {
   <th scope="col">駆虫済み</th>
   <th scope="col">殺菌済み</th>
   <th scope="col">登録日</th>
+  <th scope="col">BMI</th>
   <th scope="col">編集</th>
 </tr>`;
   data.forEach((e) => {
@@ -183,6 +184,7 @@ const render = () => {
     <td><i class="${colorCheck[1]}"></i></td>
     <td><i class="${colorCheck[2]}"></i></td>
     <td>${day}/${month}/${year}</td>
+    <td>${e.petBMI}</td>
     <td><button type="button" onclick="deleteById(${e.petId})"  class="btn btn-danger delete-btn" id="delete-row-${e.petId}">Delete</button></td>
   </tr>`;
   });
@@ -207,3 +209,61 @@ function deleteById(value) {
     render();
   }
 }
+
+//show BMI
+const showBMI = function () {
+  data.forEach((element) => {
+    const BMI = element.petWeight / Math.pow(element.petLength / 100, 2);
+    element.petBMI = BMI.toFixed(2);
+    console.log(BMI);
+    let table = `<tr>
+  <th scope="col">ID</th>
+  <th scope="col">名前</th>
+  <th scope="col">年齢</th>
+  <th scope="col">タイプ</th>
+  <th scope="col">体重</th>
+  <th scope="col">長さ</th>
+  <th scope="col">種類</th>
+  <th scope="col">色</th>
+  <th scope="col">接種済み</th>
+  <th scope="col">駆虫済み</th>
+  <th scope="col">殺菌済み</th>
+  <th scope="col">登録日</th>
+  <th scope="col">BMI</th>
+  <th scope="col">編集</th>
+</tr>`;
+    data.forEach((e) => {
+      let colorCheck = [];
+      const colorList = e.petHealth;
+      colorList.forEach((element) => {
+        if (element === true) colorCheck.push('bi bi-check-circle-fill');
+        else colorCheck.push('bi bi-x-circle-fill');
+      });
+      //get date
+      const date = new Date();
+      let day = (date.getDay() + '').padStart(2, '0'); // if 1-9 . add before 0
+      let month = (date.getMonth() + '').padStart(2, '0');
+      let year = date.getFullYear();
+      //全部　x にします
+      table += `<tr>
+    <th>${e.petId}</th>
+    <td>${e.petName}</td>
+    <td>${e.petAge}</td>
+    <td>${e.petType}</td>
+    <td>${e.petWeight}kg</td>
+    <td>${e.petLength}cm</td>
+    <td>${e.petBreed}</td>
+    <td><i class="bi bi-square-fill" style="color: ${e.petColor}"></i></td>
+    <td><i class="${colorCheck[0]}"></i></td>
+    <td><i class="${colorCheck[1]}"></i></td>
+    <td><i class="${colorCheck[2]}"></i></td>
+    <td>${day}/${month}/${year}</td>
+    <td>${e.petBMI}</td>
+    <td><button type="button" onclick="deleteById(${e.petId})"  class="btn btn-danger delete-btn" id="delete-row-${e.petId}">Delete</button></td>
+  </tr>`;
+    });
+    document.getElementById('render-table').innerHTML = table;
+  });
+};
+
+SHOW_BMI.addEventListener('click', showBMI);
